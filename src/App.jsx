@@ -1,43 +1,22 @@
-import { useState } from 'react'
-import logo from './logo.svg'
+import React from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+import AuthorSummary from './pages/AuthorSummary'
+import AuthorDetail from './pages/AuthorDetail'
+import AuthorCreate from './pages/AuthorCreate'
 
+function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="ui container">
+      <h1 className="ui center aligned header" style={ { marginTop: "3em"} }>
+        Welcome to GraphQL Book Store
+      </h1>
+      <Routes>
+        <Route path="/" element={<AuthorSummary />}></Route>
+        <Route path='/author/:id' element={<AuthorDetail />}></Route>
+        <Route path='/author/new' element={<AuthorCreate />}></Route>
+      </Routes>
     </div>
   )
 }
