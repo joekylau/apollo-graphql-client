@@ -15,6 +15,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+// Wire up apollo client by ApolloProvider
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

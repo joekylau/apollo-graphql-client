@@ -2,8 +2,6 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client'
 import { QUERY_AUTHOR } from '../graphql/queries'
-import { MUTATION_ADDBOOK } from '../graphql/mutations'
-
 import BookList from '../components/BookList'
 
 function AuthorDetail() {
@@ -13,7 +11,6 @@ function AuthorDetail() {
       id: params.id
     }
   });
-  const [addBook] = useMutation(MUTATION_ADDBOOK);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
