@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { QUERY_AUTHOR } from '../graphql/queries'
+import { MUTATION_ADDBOOK } from '../graphql/mutations'
+
+import BookList from '../components/BookList'
 
 function AuthorDetail() {
   const params = useParams();
@@ -10,6 +13,7 @@ function AuthorDetail() {
       id: params.id
     }
   });
+  const [addBook] = useMutation(MUTATION_ADDBOOK);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -18,15 +22,17 @@ function AuthorDetail() {
     <div>
       <h3 className="ui center aligned header">{data.author.name}</h3>
       <div className="ui segments">
-        {data.author.books.map(({id, title}) => (
-          <div className="ui segment" key={id}>
-            {title}
-          </div>
-        ))}
+        <BookList books={data.author.books} />
       </div>
       <Link to="/">
         <button className="ui button">
           Back
+        </button>
+      </Link>
+      <Link to={`/author/${params.id}/new`}>
+        <button className="ui right floated primary button">
+          <i className='icon book'></i>
+          Add New Book
         </button>
       </Link>
     </div>

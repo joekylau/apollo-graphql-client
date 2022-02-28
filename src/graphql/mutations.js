@@ -13,3 +13,17 @@ export const MUTATION_DELETEAUTHOR = gql`
     deleteAuthor(id: $id)
   }
 `;
+
+export const MUTATION_ADDBOOK = gql`
+  mutation AddBook($book: BookInput) {
+    addBook(book: $book) {
+      id
+    }
+  }
+`;
+
+export const MUTATION_DELETEBOOK = gql`
+  mutation DeleteBook($id: ID) {
+    deleteBook(id: $id)
+  }
+`;
