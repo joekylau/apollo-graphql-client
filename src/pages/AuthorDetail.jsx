@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
-import { queryAuthor } from '../graphql/queries'
+import { QUERY_AUTHOR } from '../graphql/queries'
 
 function AuthorDetail() {
   const params = useParams();
-  const { loading, error, data } = useQuery(queryAuthor, {
+  const { loading, error, data } = useQuery(QUERY_AUTHOR, {
     variables: {
       id: params.id
     }

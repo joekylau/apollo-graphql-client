@@ -1,19 +1,34 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useQuery } from '@apollo/client'
-import { queryAuthors } from '../graphql/queries'
+import { Button, Icon } from 'semantic-ui-react'
+import { useMutation, useApolloClient } from '@apollo/client'
+import { MUTATION_DELETEAUTHOR } from '../graphql/mutations'
 
-function AuthorList() {
-  const { loading, error, data } = useQuery(queryAuthors);
+function AuthorList(props) {
+  const [deleteAuthor, { loading, error, data }] = useMutation(MUTATION_DELETEAUTHOR);
+  const client = useApolloClient();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  async function handleDeleteAuthor(id) {
+    await deleteAuthor({
+      variables: {
+        id
+      }
+    });
 
-  return data.authors.map(({id, name}) => (
+    await client.refetchQueries({
+      include: ["Authors"]
+    });
+  }
+
+  return props.authors.map(({id, name}) => (
     <div className="ui segment" key={id}>
       <Link to={`/author/${id}`}>
         {name}
       </Link>
+      <Button floated='right' labelPosition='left' onClick={() => handleDeleteAuthor(id)}>
+        <Icon name="trash"></Icon>
+        Delete
+      </Button>
     </div>
   ))
 }
